@@ -24,7 +24,8 @@ public String getSendungsTyp(){
 /**
  * Nicht benötigt?!?!?!
  */
-public void istEinEinschreiben(){
+public boolean istEinEinschreiben(){
+	return istEinschreiben;
 }
 
 /**
