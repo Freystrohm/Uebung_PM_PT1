@@ -3,8 +3,8 @@ package aufgabenblatt6;
 public class SendungMain {
 
 	public static void main(String[]args){
-		Adresse adresse1 = new Adresse("Petkumstraße",13,22085,Adresse.Staedte.BERLIN);
-		Adresse adresse2 = new Adresse("Finkenweg",8,23847,Adresse.Staedte.HAMBURG);
+		Adresse adresse1 = new Adresse("Petkumstraße",13,22085,Staedte.BERLIN);
+		Adresse adresse2 = new Adresse("Finkenweg",8,23847,Staedte.HAMBURG);
 		Person sender = new Person(adresse1);
 		Person empfaenger=new Person(adresse2);
 		Sendung sendung1 = new Brief(sender,empfaenger);

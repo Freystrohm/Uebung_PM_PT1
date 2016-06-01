@@ -17,7 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import aufgabenblatt6.Adresse.Staedte;
+
 
 public class GoogleSendungsdauerSchaetzer implements SendungsdauerSchaetzer {
   private static final String TAG_VALUE = "value";

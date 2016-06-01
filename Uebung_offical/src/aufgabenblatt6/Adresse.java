@@ -6,9 +6,6 @@ package aufgabenblatt6;
 
 public class Adresse 
 {
-	public static enum Staedte {
-		BERLIN, HAMBURG, MUENCHEN, KOELN, FRANKFURT, STUTTGART, DUESSELDORF, DORTMUND, ESSEN, BREMEN;
-}
 	private String strasse;
 	private int hausnummer;
 	private int postleitzahl;
