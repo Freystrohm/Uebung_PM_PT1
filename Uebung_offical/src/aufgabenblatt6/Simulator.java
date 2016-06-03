@@ -11,8 +11,7 @@ package aufgabenblatt6;
  */
 public class Simulator
 {
-
-	private Staedte[] stadt = Staedte.values();
+	private Staedte[] stadt;
 	private Sendung[] listeSendungen = new Sendung[20];
 	private OfflineSendungsdauerSchaetzer schaetzer;
 	private int aktuellerZeitpunkt;
@@ -23,6 +22,7 @@ public class Simulator
 	{
 		schaetzer = new OfflineSendungsdauerSchaetzer();
 		aktuellerZeitpunkt = 0;
+		stadt = Staedte.values();
 		for (int i = 0; i < listeSendungen.length; i++)
 		{
 			listeSendungen[i] = sendungErstellen(
@@ -32,6 +32,13 @@ public class Simulator
 
 	}
 
+	/**
+	 * private Funktionen zur Erstellung ein zufällig generierten Sendun.
+	 * 
+	 * @param senderOrt
+	 * @param empfaengerOrt
+	 * @return
+	 */
 	private Sendung sendungErstellen(Staedte senderOrt, Staedte empfaengerOrt)
 	{
 		Sendung sendung;
@@ -70,6 +77,11 @@ public class Simulator
 				stadt[(int) (Math.random() * stadt.length)]));
 	}
 
+	/**
+	 * Macht in dem Simulator einen Zeitschrit in der übergebenen Schrittweite.
+	 * 
+	 * @param schrittweite
+	 */
 	public void zeitSchritt(int schrittweite)
 	{
 		aktuellerZeitpunkt += schrittweite;
@@ -122,7 +134,8 @@ public class Simulator
 		int verbleibendeZeit = listeSendungen[zaehler].getTransportDauer()
 				- (listeSendungen[zaehler].getStartZeitpunkt()
 						+ aktuellerZeitpunkt);
-		double prozent = ((double)verbleibendeZeit * 100) / listeSendungen[zaehler].getTransportDauer();
+		double prozent = ((double) verbleibendeZeit * 100)
+				/ listeSendungen[zaehler].getTransportDauer();
 		return prozent;
 	}
 	/**
