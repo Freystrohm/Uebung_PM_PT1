@@ -51,8 +51,8 @@ public class Simulator
 			sendung = briefErstellen(senderOrt, empfaengerOrt);
 		}
 
-		System.out
-				.println("Sendung erstellt:\n" + sendung.toString() + "\n\n\n");
+		System.out.println(
+				"Neue Sendung erstellt:\n" + sendung.toString() + "\n\n\n");
 		return sendung;
 	}
 
@@ -96,9 +96,10 @@ public class Simulator
 				listeSendungen[i] = sendungErstellen(
 						stadt[(int) (stadt.length * Math.random())],
 						stadt[(int) (stadt.length * Math.random())]);
-				System.out.println("Neue Sendung eingestellt: \n"
-						+ listeSendungen[i].toString() + "\n\n\n");
 			}
+
+			System.out.println("Sendung:\n" + listeSendungen[i].toString()
+					+ "\n\nist bei " + getProzent(i) + " Prozent\n\n\n");
 		}
 	}
 	// Michel--------------------------------------------------------------------------------------
@@ -132,12 +133,13 @@ public class Simulator
 	{
 
 		int verbleibendeZeit = listeSendungen[zaehler].getTransportDauer()
-				- (listeSendungen[zaehler].getStartZeitpunkt()
-						+ aktuellerZeitpunkt);
+				- (aktuellerZeitpunkt
+						- listeSendungen[zaehler].getStartZeitpunkt());
 		double prozent = ((double) verbleibendeZeit * 100)
 				/ listeSendungen[zaehler].getTransportDauer();
 		return prozent;
 	}
+
 	/**
 	 * Gibt die Liste an Sendungen auf der Konsole aus.
 	 */

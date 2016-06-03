@@ -66,7 +66,8 @@ public class Brief extends Sendung
 	{
 		return getSendungsTyp() + "\nSender:\n" + sender.toString()
 				+ "\n\nEmpfaenger:\n" + empfaenger.toString()
-				+ "\n\nStartzeitpunkt: " + startZeitpunkt + "\nTransportdauer: "
+				+ "\n\nSendungsnummer: " + sendungsNummer
+				+ "\nStartzeitpunkt: " + startZeitpunkt + "\nTransportdauer: "
 				+ transportDauer;
 	}
 }
