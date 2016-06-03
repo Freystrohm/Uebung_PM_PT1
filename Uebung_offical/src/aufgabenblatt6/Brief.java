@@ -25,6 +25,7 @@ public class Brief extends Sendung
 		this.istEinschreiben = istEinschreiben;
 		istAusgeliefert = false;
 	}
+	// Methoden---------------------------------------------------------------------------------------------------------
 	/**
 	 * Gibt den Typ der Sendung als String wieder.
 	 */
@@ -60,16 +61,12 @@ public class Brief extends Sendung
 		}
 
 	}
-	/**
-	 * Reduziert die Transportdauer nach jedem Schritt um eine Schrittweite.
-	 */
 	@Override
-	public void schritt(int schrittweite)
+	public String toString()
 	{
-		super.transportDauer -= schrittweite;
-		if (transportDauer <= 0)
-		{
-			istAusgeliefert = true;
-		}
+		return getSendungsTyp() + "\nSender:\n" + sender.toString()
+				+ "\n\nEmpfaenger:\n" + empfaenger.toString()
+				+ "\n\nStartzeitpunkt: " + startZeitpunkt + "\nTransportdauer: "
+				+ transportDauer;
 	}
 }

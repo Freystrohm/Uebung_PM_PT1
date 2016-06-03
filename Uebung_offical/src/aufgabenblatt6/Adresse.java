@@ -37,10 +37,4 @@ public class Adresse
 		return ort;
 	}
 
-
-
-	
-	
-	
-	
 }

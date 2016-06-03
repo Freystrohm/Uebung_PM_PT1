@@ -27,6 +27,7 @@ public class OfflineSendungsdauerSchaetzer implements SendungsdauerSchaetzer
 	{
 		ListenSendeDauer = new int[Staedte.values().length][Staedte
 				.values().length];
+		getSendedauerFromOnline();
 	}
 
 	// Other---------------------------------------------------------------

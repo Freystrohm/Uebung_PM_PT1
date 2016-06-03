@@ -4,14 +4,23 @@
  */
 package aufgabenblatt6;
 
-public class Person {
-private Adresse adresse;
+public class Person
+{
+	private Adresse adresse;
 
-public Person(Adresse adresse){
-	this.adresse=adresse;
-}
-public Adresse getAdresse(){
-return adresse;
-}
+	public Person(Adresse adresse)
+	{
+		this.adresse = adresse;
+	}
+	public Adresse getAdresse()
+	{
+		return adresse;
+	}
+
+	public String toString()
+	{
+		return adresse.getStrasse() + " " + adresse.getHausnummer() + "\n"
+				+ adresse.getPostleitzahl() + " " + adresse.getOrt();
+	}
 
 }

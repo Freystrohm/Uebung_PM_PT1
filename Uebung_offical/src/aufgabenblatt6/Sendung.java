@@ -16,7 +16,6 @@ public abstract class Sendung {
 	protected int startZeitpunkt;
 	protected int transportDauer;
 	protected static int SENDUNGSNUMMERZAEHLER=0;
-	OfflineSendungsdauerSchaetzer offline=new OfflineSendungsdauerSchaetzer();
 
 	// Konstruktor-----------------------------------------
 	public Sendung(Person sender, Person empfaenger, int startZeitpunkt, int transportDauer) {
@@ -78,6 +77,4 @@ public abstract class Sendung {
 	public abstract boolean istAusgeliefert();
 
 	public abstract void aktualisiereZeitpunkt(int aktuelleZeit);
-	public abstract void schritt (int schrittweite);
-
 }
