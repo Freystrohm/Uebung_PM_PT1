@@ -10,25 +10,29 @@ import aufgabenblatt7.NullstellenException;
  *
  */
 
-public class QuadratischeFunktionen implements Funktion {
-	private double a,b,c;
-	public QuadratischeFunktionen(double a, double b, double c)  {
-		
-		this.a=a;
-		this.b=b;
-		this.c=c;
-	
+public class QuadratischeFunktionen implements IFunktion
+{
+	private double a, b, c;
+	public QuadratischeFunktionen(double a, double b, double c)
+	{
+		this.a = a;
+		this.b = b;
+		this.c = c;
 	}
+
 	/**
-	 * Berechnet den Wert der Funktion anhand des Übergabewertes.
-	 * return: ergebnis
+	 * Berechnet den Wert der Funktion anhand des Übergabewertes. return:
+	 * ergebnis
 	 */
 	@Override
-	public double berechnefVonX(double xWert) throws NullstellenException{
-		if(this.a==0&&this.b==0&&this.c==0){
-			throw new NullstellenException("Hoechstens zwei Werte der Funktion duerfen Null sein!");
+	public double berechnefVonX(double xWert) throws NullstellenException
+	{
+		if (this.a == 0 && this.b == 0 && this.c == 0)
+		{
+			throw new NullstellenException(
+					"Hoechstens zwei Werte der Funktion duerfen Null sein!");
 		}
-		double ergebnis=a*(Math.pow(xWert, 2))+b*xWert+c;//2x²+3x-2
+		double ergebnis = a * (xWert*xWert) + b * xWert + c;// 2x²+3x-2
 		return ergebnis;
 	}
 	/**
@@ -36,16 +40,21 @@ public class QuadratischeFunktionen implements Funktion {
 	 * return: ergebnis
 	 */
 	@Override
-	public double berechneAbleitungFvonX(double xWert)throws NullstellenException {
-		if(this.a==0&&this.b==0){
-			throw new NullstellenException("Hoechstens ein Wert der Funktion darf Null sein!");
+	public double berechneAbleitungFvonX(double xWert)
+			throws NullstellenException
+	{
+		if (this.a == 0 && this.b == 0)
+		{
+			throw new NullstellenException(
+					"Hoechstens ein Wert der Funktion darf Null sein!");
 		}
-		double ergebnis = (2*a)*xWert+b;//4x+3
+		double ergebnis = (2 * a) * xWert + b;// 4x+3
 		return ergebnis;
 	}
-	
-	public String toString(){
-		return "Funktion: ("+a+")*x²+("+b+")*x+"+"("+c+")";
+
+	public String toString()
+	{
+		return "Funktion: (" + a + ")*x²+(" + b + ")*x+" + "(" + c + ")";
 	}
 
 }

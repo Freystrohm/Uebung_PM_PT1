@@ -4,8 +4,8 @@
  */
 package aufgabenblatt7;
 
-public interface Funktion {
-	public double berechnefVonX(double xWert) throws NullstellenException;
-	public double berechneAbleitungFvonX(double xWert) throws NullstellenException;
-
+public interface IFunktion
+{
+	public double berechnefVonX(double xWert);
+	public double berechneAbleitungFvonX(double xWert);
 }
