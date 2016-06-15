@@ -12,159 +12,173 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.text.*;
 
-public class Nullstellen implements Comparator<Double>  {
+public class Nullstellen implements Comparator<Double>
+{
 	private double schwellwert;
-	private Funktion funktion;
-	HashSet<Double>listeNullstellenHashSet;
-	List<Double>listeNullstellenArrayList;
-	private int maxAnzahlInterationen=10;
-//--------------------------------Konstruktor------------------------------------------------------------
-	public Nullstellen(Funktion funktion,double wert, int exponent)
+	private IFunktion funktion;
+	private int maxAnzahlInterationen = 10;
+	// --------------------------------Konstruktor------------------------------------------------------------
+	public Nullstellen(IFunktion funktion, double wert, int exponent)
 	{
-		this.schwellwert=Math.pow(wert, exponent);
-		this.funktion=funktion;
-		this.listeNullstellenHashSet = new HashSet<Double>();
-		this.listeNullstellenArrayList = new ArrayList<Double>();
+		this.schwellwert = Math.pow(wert, exponent);
+		this.funktion = funktion;
 	}
-//----------------------------------Methoden--------------------------------------------------------------
-/**
- * 
- * @param startWert: Startwert zur Brechnung der Nullstelle
- * @return double Nullstelle
- * @throws NullstellenException
- * 
- * Sucht mit Hilfe des Newtonverfahrens eine Nullstelle heraus.
- */
-	public double findeNullstelle (double startWert)throws NullstellenException{
-		double nullstelle =startWert;
-		
-		
-		if (startWert==0){
-		throw new NullstellenException("Startwert darf nicht 0 sein!");
-		
-		}
-		nullstelle = nullstelle-(funktion.berechnefVonX(startWert)/funktion.berechneAbleitungFvonX(startWert));
+	// ----------------------------------Methoden--------------------------------------------------------------
+	/**
+	 * 
+	 * @param startWert:
+	 *            Startwert zur Brechnung der Nullstelle
+	 * @return double Nullstelle
+	 * @throws NullstellenException
+	 * 
+	 *             Sucht mit Hilfe des Newtonverfahrens eine Nullstelle heraus.
+	 */
+	public double findeNullstelle(double startWert) throws NullstellenException
+	{
+		double nullstelle = startWert;
 
-		int zaehler=0;
-		if (startWert>0)
+		// Wieso??????
+		// if (startWert == 0)
+		// {
+		// throw new NullstellenException("Startwert darf nicht 0 sein!");
+		//
+		// }
+
+		// z.B. Abbruch bei f(x) < 10^-5 Genauigkeit
+		for (int i = 0; Math
+				.abs(funktion.berechnefVonX(nullstelle)) < schwellwert; i++)
 		{
-		while (funktion.berechnefVonX(nullstelle)>=nullstelle*schwellwert)//Abbruch bei f(x) < 10^-5 Genauigkeit
+			if (funktion.berechnefVonX(nullstelle) == 0) // eventuell unnötig
 			{
-			if (funktion.berechnefVonX(nullstelle)==0){
 				break;
 			}
-			zaehler++;
-			if(zaehler>=maxAnzahlInterationen)
-				{
-					throw new NullstellenException("Keine Nullstelle gefunden!");
-				}
-				nullstelle = nullstelle-(funktion.berechnefVonX(nullstelle)/funktion.berechneAbleitungFvonX(nullstelle));
-				}
-		}
-		else 
-		{
-		while (funktion.berechnefVonX(nullstelle)>=-(nullstelle*schwellwert)){
-			zaehler++;
-			if(zaehler>=10)
-				{
-					throw new NullstellenException("Keine Nullstelle gefunden!");
-				}
-				nullstelle = nullstelle-(funktion.berechnefVonX(nullstelle)/funktion.berechneAbleitungFvonX(nullstelle));
-				//System.out.println(nullstelle);
-				}
+			if (i >= maxAnzahlInterationen)
+			{
+				throw new NullstellenException("Keine Nullstelle gefunden!");
 			}
+			if (Math.abs(
+					funktion.berechneAbleitungFvonX(nullstelle)) <= schwellwert
+					&& !(Math.abs(
+							funktion.berechnefVonX(nullstelle)) <= schwellwert))
+			{
+				throw new NullstellenException(
+						"Extrempunkt erreicht keine weiteres konvergieren möglich");
+			}
+			nullstelle = nullstelle - (funktion.berechnefVonX(nullstelle)
+					/ funktion.berechneAbleitungFvonX(nullstelle));
+		}
+
 		return nullstelle;
 	}
 	/**
 	 * 
-	 * @param min: Kleinster Wert des Intervalls
-	 * @param max: Groeßter Wert des Intervalls
+	 * @param min:
+	 *            Kleinster Wert des Intervalls
+	 * @param max:
+	 *            Groeßter Wert des Intervalls
 	 * @param anzahlVersuche
 	 * @return HashSet <Double> listeNullstellenHashSet
-	 * @throws NullstellenException durch findeNullstelle() Methode
+	 * @throws NullstellenException
+	 *             durch findeNullstelle() Methode
 	 * 
-	 * Speichert mit Hilfe der findeNullstelle() Methode und einer randomisierten Zahl aus dem angegebenen 
-	 * Intervall die Näherungswerte in eine Arraylist. 
+	 *             Speichert mit Hilfe der findeNullstelle() Methode und einer
+	 *             randomisierten Zahl aus dem angegebenen Intervall die
+	 *             Näherungswerte in eine Arraylist.
 	 */
-	public HashSet<Double> findeNullstellenRandomisiert(int min, int max, int anzahlVersuche)throws NullstellenException
+	public List<Double> findeNullstellenRandomisiert(int min, int max,
+			int anzahlVersuche) throws NullstellenException
 	{
-		
-		double zwischenWert=0;
-
-		List<Integer> listeIntervall=new ArrayList<Integer>();
-		
-		for (int i=min;i<=max;i++){
-				 listeIntervall.add(i);
-					}
-				
-		for (int i=0;i<anzahlVersuche;i++){
-			double startWert=listeIntervall.get((int)(Math.random()*(listeIntervall.size())));
-			if (startWert!=0)
+		double zwischenWert;
+		HashSet<Double> listeNullstellenHashSet = new HashSet<Double>();
+		HashSet<Integer> verwendeteSartwerte = new HashSet<Integer>();
+		// for (int i = min; i <= max; i++)
+		// {
+		// listeIntervall.add(i);
+		// }
+		double startWert = Math.random() * (max - min) + min;
+		for (int i = 0; i < anzahlVersuche; i++)
+		{
+			while (!verwendeteSartwerte.add((int) startWert))
 			{
-				zwischenWert=findeNullstelle(startWert);
-				listeNullstellenHashSet.add(zwischenWert);
+				startWert = Math.random() * (max - min) + min;
 			}
+
+			zwischenWert = findeNullstelle(startWert);
+			listeNullstellenHashSet.add(zwischenWert);
 		}
-		listeNullstellensortieren();
-		return listeNullstellenHashSet; 
+
+		return listeNullstellenSortieren(listeNullstellenHashSet);
 	}
-	
+
 	/**
 	 * speichert die gefundenen Werte in eine ArrayList und sortiert diese
-	 * 	
+	 * 
 	 */
-	public void listeNullstellensortieren(){
-		Iterator <Double> iter= listeNullstellenHashSet.iterator();
-		for(int i=0;i<listeNullstellenHashSet.size();i++){
-			if (iter.hasNext()){
-				listeNullstellenArrayList.add(iter.next());
+	public List<Double> listeNullstellenSortieren(
+			HashSet<Double> listeNullstellenHashSet)
+	{
+		List<Double> listeNullstellenArrayList = new ArrayList<Double>();
+		Iterator<Double> iter = listeNullstellenHashSet.iterator();
+		
+		while (iter.hasNext())
+		{
+			listeNullstellenArrayList.add(iter.next());
+		}
+		
+		Collections.sort(listeNullstellenArrayList);
+		iter = listeNullstellenArrayList.iterator();
+		DoubleWert wert = new DoubleWert();
+		
+		int zaehlerInterator = 0;
+		while (iter.hasNext())
+		{
+			zaehlerInterator++;
+			if (listeNullstellenArrayList.size() <= 1)
+			{
+				break;
 			}
-			else{
-				continue;
+			if (wert.equals(iter.next(),
+					listeNullstellenArrayList.get(zaehlerInterator)))
+			{
+				iter.remove();
 			}
 		}
-		Collections.sort(listeNullstellenArrayList);
-		Iterator <Double> iter2= listeNullstellenArrayList.iterator();
-		DoubleWert wert = new DoubleWert();
 
-		while (iter2.hasNext()){
-			int zaehlerInterator=0;
-			zaehlerInterator++;
-			if(listeNullstellenArrayList.size()<=1){
-			break;
-			}
-				if(wert.equals(iter2.next(),listeNullstellenArrayList.get(zaehlerInterator))){
-				iter2.remove();
-				}
-				}
-				}
+		return listeNullstellenArrayList;
+	}
+
 	/**
 	 * Gibt die ArrayList aus
 	 */
-	public String toString(){
-		DecimalFormat format = new DecimalFormat("#0.00000"); 
-		String ergebnis="Nullstellen: {";
-		Iterator <Double> iter2= listeNullstellenArrayList.iterator();
+	public String toString()
+	{
+		DecimalFormat format = new DecimalFormat("#0.00000");
+		String ergebnis = "Nullstellen: {";
+		Iterator<Double> iter2 = listeNullstellenArrayList.iterator();
 		int zaehler = 0;
-		while(iter2.hasNext()){
+		while (iter2.hasNext())
+		{
 			zaehler++;
-			if(zaehler == listeNullstellenArrayList.size()){
-				ergebnis+= format.format(iter2.next());
-				}
-			else{
-			ergebnis += format.format(iter2.next())+"| ";
+			if (zaehler == listeNullstellenArrayList.size())
+			{
+				ergebnis += format.format(iter2.next());
+			}
+			else
+			{
+				ergebnis += format.format(iter2.next()) + "| ";
 			}
 		}
-			return ergebnis+"}";	
+		return ergebnis + "}";
 	}
 	@Override
-	public int compare(Double wert1, Double wert2) {
-		DoubleWert wert =new DoubleWert();
-		if(wert.equals(wert1, wert2)==true){
-		return -1;
+	public int compare(Double wert1, Double wert2)
+	{
+		DoubleWert wert = new DoubleWert();
+		if (wert.equals(wert1, wert2) == true)
+		{
+			return -1;
 		}
 		return 0;
 	}
-
 
 }
