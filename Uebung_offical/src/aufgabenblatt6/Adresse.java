@@ -6,22 +6,16 @@ package aufgabenblatt6;
 
 public class Adresse 
 {
-	public static enum Staedte {
-		BERLIN, HAMBURG, MUENCHEN, KOELN, FRANKFURT, STUTTGART, DUESSELDORF, DORTMUND, ESSEN, BREMEN;
-}
 	private String strasse;
 	private int hausnummer;
 	private int postleitzahl;
 	public Staedte ort;
 
 	public Adresse (String strasse, int hausnummer,int postleitzahl, Staedte ort){
-	this.strasse=strasse;
-	this.hausnummer=hausnummer;
-	this.postleitzahl=postleitzahl;
-	this.ort=ort;
-	
-	
-	
+		this.strasse=strasse;
+		this.hausnummer=hausnummer;
+		this.postleitzahl=postleitzahl;
+		this.ort=ort;
 	}
 
 	
@@ -39,11 +33,11 @@ public class Adresse
 	public Staedte getOrt(){
 		return ort;
 	}
+	
+	public String toString()
+	{
+		return strasse + " " + hausnummer + "\n"
+				+ postleitzahl + " " + ort.toString();
+	}
 
-
-
-	
-	
-	
-	
 }

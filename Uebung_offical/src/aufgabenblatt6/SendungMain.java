@@ -1,22 +1,37 @@
 package aufgabenblatt6;
 
-public class SendungMain {
+import java.util.Scanner;
 
-	public static void main(String[]args){
-		Adresse adresse1 = new Adresse("Petkumstraße",13,22085,Adresse.Staedte.BERLIN);
-		Adresse adresse2 = new Adresse("Finkenweg",8,23847,Adresse.Staedte.HAMBURG);
-		Person sender = new Person(adresse1);
-		Person empfaenger=new Person(adresse2);
-		Sendung sendung1 = new Brief(sender,empfaenger);
-		
-		OfflineSendungsdauerSchaetzer offline = new OfflineSendungsdauerSchaetzer();
-		System.out.println(offline.getSendungsTransportDauer(sender.getAdresse().getOrt(), empfaenger.getAdresse().getOrt()));
-		
-		GoogleSendungsdauerSchaetzer google = new GoogleSendungsdauerSchaetzer();
-		System.out.println(google.getSendungsTransportDauer(sender.getAdresse().getOrt(),empfaenger.getAdresse().getOrt()));
-		
-		
-		
+public class SendungMain
+{
+
+	public static void main(String[] args)
+	{
+		Simulator simulator = new Simulator();
+		Scanner scan = new Scanner(System.in);
+		boolean ende = false;
+		int i = 0;
+		while (!ende)
+		{
+			System.out.println("Was willst du tun?:\n"
+					+ "1. einen Zeitschritt von 60 ausführen\n"
+					+ "2. Programm beenden\n");
+
+			System.out.println("waehle: ");
+			i = scan.nextInt();
+			switch (i)
+			{
+				case 1 :
+					simulator.zeitSchritt(60);
+					break;
+				case 2 :
+					ende = true;
+					break;
+				default :
+					System.out.println("ungueltige Eingabe try again!!!!\n\n");
+			}
+		}
+		scan.close();
 	}
 
 }

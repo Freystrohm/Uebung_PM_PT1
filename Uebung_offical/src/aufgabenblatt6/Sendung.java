@@ -15,15 +15,16 @@ public abstract class Sendung {
 	protected int sendungsNummer;
 	protected int startZeitpunkt;
 	protected int transportDauer;
-	protected int sendungsNummerZaehler;
-	OfflineSendungsdauerSchaetzer offline=new OfflineSendungsdauerSchaetzer();
+	protected static int SENDUNGSNUMMERZAEHLER=0;
 
 	// Konstruktor-----------------------------------------
-	public Sendung(Person sender, Person empfaenger) {
+	public Sendung(Person sender, Person empfaenger, int startZeitpunkt, int transportDauer) {
 		this.sender = sender;
 		this.empfaenger = empfaenger;
-		this.transportDauer=offline.getSendungsTransportDauer(sender.getAdresse().getOrt(), empfaenger.getAdresse().getOrt());
-		this.startZeitpunkt=0;
+		this.transportDauer=transportDauer;
+		this.startZeitpunkt=startZeitpunkt;
+		SENDUNGSNUMMERZAEHLER++;
+		sendungsNummer= SENDUNGSNUMMERZAEHLER;
 	}
 
 	// Methoden---------------------------------------------
@@ -72,10 +73,7 @@ public abstract class Sendung {
 				+ "\nStartzeitpunkt: " + startZeitpunkt + "\nTransportdauer: " + transportDauer;
 		return ausgabe;
 	}
-	public abstract String getSendungsTyp();
 	public abstract boolean istAusgeliefert();
 
-	public abstract void aktualisiereZeitpunkt(int zeit);
-	public abstract void schritt (int schrittweite);
-
+	public abstract void aktualisiereZeitpunkt(int aktuelleZeit);
 }
