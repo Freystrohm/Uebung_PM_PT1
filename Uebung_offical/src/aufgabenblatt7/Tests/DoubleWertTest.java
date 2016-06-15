@@ -8,6 +8,7 @@ import org.junit.*;
 import aufgabenblatt7.DoubleWert;
 import static org.junit.Assert.*;
 
+
 public class DoubleWertTest {
 	
 @Test
