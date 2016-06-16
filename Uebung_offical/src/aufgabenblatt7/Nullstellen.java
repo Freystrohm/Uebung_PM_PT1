@@ -45,8 +45,8 @@ public class Nullstellen implements Comparator<Double>
 		// }
 
 		// z.B. Abbruch bei f(x) < 10^-5 Genauigkeit
-		for (int i = 0; Math
-				.abs(funktion.berechnefVonX(nullstelle)) < schwellwert; i++)
+		for (int i = 0; !(Math
+				.abs(funktion.berechnefVonX(nullstelle)) < schwellwert); i++)
 		{
 			if (funktion.berechnefVonX(nullstelle) == 0) // eventuell unnötig
 			{
@@ -150,26 +150,26 @@ public class Nullstellen implements Comparator<Double>
 	/**
 	 * Gibt die ArrayList aus
 	 */
-	public String toString()
-	{
-		DecimalFormat format = new DecimalFormat("#0.00000");
-		String ergebnis = "Nullstellen: {";
-		Iterator<Double> iter2 = listeNullstellenArrayList.iterator();
-		int zaehler = 0;
-		while (iter2.hasNext())
-		{
-			zaehler++;
-			if (zaehler == listeNullstellenArrayList.size())
-			{
-				ergebnis += format.format(iter2.next());
-			}
-			else
-			{
-				ergebnis += format.format(iter2.next()) + "| ";
-			}
-		}
-		return ergebnis + "}";
-	}
+//	public String toString()
+//	{
+//		DecimalFormat format = new DecimalFormat("#0.00000");
+//		String ergebnis = "Nullstellen: {";
+//		Iterator<Double> iter2 = listeNullstellenArrayList.iterator();
+//		int zaehler = 0;
+//		while (iter2.hasNext())
+//		{
+//			zaehler++;
+//			if (zaehler == listeNullstellenArrayList.size())
+//			{
+//				ergebnis += format.format(iter2.next());
+//			}
+//			else
+//			{
+//				ergebnis += format.format(iter2.next()) + "| ";
+//			}
+//		}
+//		return ergebnis + "}";
+//	}
 	@Override
 	public int compare(Double wert1, Double wert2)
 	{

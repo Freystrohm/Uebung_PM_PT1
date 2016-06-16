@@ -10,18 +10,17 @@ import aufgabenblatt7.QuadratischeFunktionen;
 
 import static org.junit.Assert.*;
 
-public class QuadratischeFunktionenTest {
+public class QuadratischeFunktionenTest
+{
+
 	@Test
-	public void equals() throws NullstellenException{
-		try {
-			QuadratischeFunktionen funktion = new QuadratischeFunktionen(0,0,0);
-			funktion.berechnefVonX(3);
-	        fail(); 
-	    } 
-	    catch (Exception e) {
-	        final String expected = "Hoechstens zwei Werte der Funktion duerfen Null sein!";
-	        assertEquals( expected, e.getMessage());
-	    }        	
+	public void equals() throws NullstellenException
+	{
+		QuadratischeFunktionen funktion = new QuadratischeFunktionen(1, 2, 3);
+		assertEquals("Der Wert Stimmt nicht mit dem erwarteten überein.", 18,
+				funktion.berechnefVonX(3), Math.pow(10, -5));
+		assertEquals("Der Wert Stimmt nicht mit dem erwarteten überein.", 8,
+				funktion.berechneAbleitungFvonX(3), Math.pow(10, -5));
 	}
 
 }
